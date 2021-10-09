@@ -1,8 +1,47 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Cookie from 'js-cookie';
+import Head from 'next/head';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import Basket from '../components/Basket';
+import Header from '../components/Header';
+import Main from '../components/Main';
+import styles from '../styles/Home.module.css';
+import data from '../util/database';
 
 export default function Home() {
+  const [cartItems, setCartItems] = useState([]);
+  const { products } = data;
+
+  // function to add the product
+  function onAdd(product) {
+    const exist = cartItems.find((x) => x.id === product.id);
+
+    if (exist) {
+      setCartItems(
+        cartItems.map((x) =>
+          x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x,
+        ),
+      );
+    } else {
+      setCartItems([...cartItems, { ...product, qty: 1 }]);
+    }
+  }
+
+  // function to remove the products
+  function onRemove(product) {
+    const exist = cartItems.find((x) => x.id === product.id);
+
+    if (exist.qty === 1) {
+      setCartItems(cartItems.filter((x) => x.id !== product.id));
+    } else {
+      setCartItems(
+        cartItems.map((x) =>
+          x.id === product.id ? { ...exist, qty: exist.qty - 1 } : x,
+        ),
+      );
+    }
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -11,46 +50,19 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+      <div className={styles.main}>
+        <div className={styles.mainContainer}>
+          <Header countCartItems={cartItems.length}> </Header>
+          <div className={styles.cartFlex}>
+            <div className={styles.row}>
+              <Main onAdd={onAdd} products={products} />
+            </div>
+            <div>
+              <Basket onAdd={onAdd} onRemove={onRemove} cartItems={cartItems} />
+            </div>
+          </div>
         </div>
-      </main>
+      </div>
 
       <footer className={styles.footer}>
         <a
@@ -65,5 +77,5 @@ export default function Home() {
         </a>
       </footer>
     </div>
-  )
+  );
 }

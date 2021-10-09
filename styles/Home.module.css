@@ -1,11 +1,13 @@
 .container {
-  min-height: 100vh;
+  width: 100vw;
+  min-height: 200vh;
   padding: 0 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #6f7174;
 }
 
 .main {
@@ -15,6 +17,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .footer {
@@ -111,6 +114,91 @@
 .logo {
   height: 1em;
   margin-left: 0.5rem;
+}
+
+.mainContainer {
+  text-align: center;
+  width: 80%;
+}
+
+/* CSS STYLING STARTS HERE */
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.col1 {
+  flex: 1;
+}
+
+.col2 {
+  flex: 2;
+}
+
+.block {
+  background-color: #e0e0e0;
+  padding: 1rem;
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.row.center {
+  align-items: center;
+}
+
+img.small {
+  max-height: 10rem;
+}
+
+.buttonStyle {
+  font-size: 0.8rem;
+  padding: 0.2rem;
+  margin: 0.1rem;
+  border-radius: 0.5rem;
+  border: 0.1rem #404040 solid;
+  background-color: #f0c040;
+  width: 100%;
+  cursor: pointer;
+}
+
+.buttonStyle.add {
+  background: #40c0f0;
+  width: 1.5rem;
+}
+
+.buttonStyle.remove {
+  background-color: #f04040;
+  width: 1.5rem;
+}
+
+.buttonStyle.badge {
+  background: #f04040;
+  border: none;
+  color: #ffffff;
+  width: 1.5rem;
+}
+
+.cartFlex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cartItemsBox {
+  width: 30vw;
+  background-color: #e0e0e0;
+  padding: 1rem;
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.textRight {
+  text-align: right;
 }
 
 @media (max-width: 600px) {
