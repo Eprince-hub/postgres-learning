@@ -1,5 +1,5 @@
 import styles from '../styles/Home.module.css';
-import Product from './Product';
+import Product from './product';
 
 export default function Main(props) {
   const { products, onAdd } = props;

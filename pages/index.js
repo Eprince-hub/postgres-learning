@@ -1,16 +1,15 @@
-import Cookie from 'js-cookie';
+// import Cookie from 'js-cookie';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import Basket from '../components/Basket';
-import Header from '../components/Header';
-import Main from '../components/Main';
 import styles from '../styles/Home.module.css';
-import data from '../util/database';
+import Basket from './basket';
+import Header from './header';
+import Main from './main';
 
-export default function Home() {
+export default function Home(props) {
   const [cartItems, setCartItems] = useState([]);
-  const { products } = data;
+  const products = props.productsData;
 
   // function to add the product
   function onAdd(product) {
@@ -78,4 +77,20 @@ export default function Home() {
       </footer>
     </div>
   );
+}
+
+// Getting the server side props
+
+export async function getServerSideProps() {
+  const { getProducts } = await import('../util/database');
+
+  const productsData = await getProducts();
+
+  // console.log(productsData);
+
+  return {
+    props: {
+      productsData,
+    },
+  };
 }
